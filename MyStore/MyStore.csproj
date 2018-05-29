@@ -244,7 +244,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\CaptChaController.cs" />
     <Compile Include="Areas\Admin\Controllers\HomeController.cs" />
+    <Compile Include="Areas\Admin\Models\LoginViewModel.cs" />
     <Compile Include="Attributes\RBACAuthorizeForAPIAttribute.cs" />
     <Compile Include="Attributes\RBACAuthorizeForMVCAttribute.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -264,6 +267,7 @@
     <Content Include="Assets\Admin\css\helper.css" />
     <Content Include="Assets\Admin\css\spinners.css" />
     <Content Include="Assets\Admin\css\style.css" />
+    <Content Include="Assets\Admin\css\style_login.css" />
     <Content Include="Assets\Admin\icons\flag-icon-css\flag-icon.min.css" />
     <Content Include="Assets\Admin\icons\flag-icon-css\flags\ad.svg" />
     <Content Include="Assets\Admin\icons\flag-icon-css\flags\ae.svg" />
@@ -614,6 +618,8 @@
     <Content Include="Assets\Admin\icons\weather-icons\fonts\weathericons-regular-webfont.ttf" />
     <Content Include="Assets\Admin\icons\weather-icons\fonts\weathericons-regular-webfont.woff" />
     <Content Include="Assets\Admin\icons\weather-icons\fonts\weathericons-regular-webfont.woff2" />
+    <Content Include="Areas\Admin\Views\CaptCha\GetCaptcha.cshtml" />
+    <Content Include="Areas\Admin\Views\Account\Login.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -643,7 +649,6 @@
   <ItemGroup>
     <Folder Include="Api\Controllers\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Admin\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
