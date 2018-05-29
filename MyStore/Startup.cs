@@ -1,9 +1,9 @@
 ﻿using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
-using hdcontext.IdentityDomain;
-using hddata.DBFactory;
-using hddata.UnitOfWork;
+using FX.Context.IdentityDomain;
+using FX.Data.DBFactory;
+using FX.Data.UnitOfWork;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.DataProtection;
@@ -28,7 +28,7 @@ namespace MyStore
         private void ConfigAutofac(IAppBuilder app)
         {
             var builder = new ContainerBuilder();
-            builder.RegisterType<hddata.UnitOfWork.UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
+            builder.RegisterType<FX.Data.UnitOfWork.UnitOfWork>().As<IUnitOfWork>().InstancePerRequest();
             builder.RegisterType<Context.dbFactory.DbFactory>().As<IDbFactory>().InstancePerRequest();
             builder.RegisterType<MyStore.Context.Context>().AsSelf().InstancePerRequest();
 
@@ -38,14 +38,13 @@ namespace MyStore
             builder.Register(c => HttpContext.Current.GetOwinContext().Authentication).InstancePerRequest();
             builder.Register(c => app.GetDataProtectionProvider()).InstancePerRequest();
 
-            hdcore.ConfigAutofac.RegisterControllers(builder);
+            FX.Core.ConfigAutofac.RegisterControllers(builder);
 
-            hdcore.ConfigAutofac.RegisterAssemblyTypes<hdidentity.Implement.ErrorService>(builder);
-            hdcore.ConfigAutofac.RegisterAssemblyTypes<hdidentity.Implement.GroupService>(builder);
-            hdcore.ConfigAutofac.RegisterAssemblyTypes<hdidentity.Implement.RoleGroupService>(builder);
-            hdcore.ConfigAutofac.RegisterAssemblyTypes<hdidentity.Implement.RoleService>(builder);
-            hdcore.ConfigAutofac.RegisterAssemblyTypes<hdidentity.Implement.UserGroupService>(builder);
-            hdcore.ConfigAutofac.RegisterAssemblyTypes<hdidentity.Implement.UserService>(builder);
+            FX.Core.ConfigAutofac.RegisterAssemblyTypes<FX.Identity.Implement.GroupService>(builder);
+            FX.Core.ConfigAutofac.RegisterAssemblyTypes<FX.Identity.Implement.RoleGroupService>(builder);
+            FX.Core.ConfigAutofac.RegisterAssemblyTypes<FX.Identity.Implement.RoleService>(builder);
+            FX.Core.ConfigAutofac.RegisterAssemblyTypes<FX.Identity.Implement.UserGroupService>(builder);
+            FX.Core.ConfigAutofac.RegisterAssemblyTypes<FX.Identity.Implement.UserService>(builder);
 
             Autofac.IContainer container = builder.Build();
             DependencyResolver.SetResolver(new AutofacDependencyResolver(container));

@@ -1,4 +1,4 @@
-﻿using hdcontext.IdentityDomain;
+﻿using FX.Context.IdentityDomain;
 using Microsoft.AspNet.Identity;
 using System.Web;
 

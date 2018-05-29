@@ -62,17 +62,18 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\Lib\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="hd.context">
-      <HintPath>..\Lib\hd.context.dll</HintPath>
+    <Reference Include="FX.Context">
+      <HintPath>..\Lib\FX.Context.dll</HintPath>
     </Reference>
-    <Reference Include="hd.core">
-      <HintPath>..\Lib\hd.core.dll</HintPath>
+    <Reference Include="FX.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Lib\FX.Core.dll</HintPath>
     </Reference>
-    <Reference Include="hd.data">
-      <HintPath>..\Lib\hd.data.dll</HintPath>
+    <Reference Include="FX.Data">
+      <HintPath>..\Lib\FX.Data.dll</HintPath>
     </Reference>
-    <Reference Include="hdidentity">
-      <HintPath>..\Lib\hdidentity.dll</HintPath>
+    <Reference Include="FX.Identity">
+      <HintPath>..\Lib\FX.Identity.dll</HintPath>
     </Reference>
     <Reference Include="log4net">
       <HintPath>..\Lib\log4net.dll</HintPath>

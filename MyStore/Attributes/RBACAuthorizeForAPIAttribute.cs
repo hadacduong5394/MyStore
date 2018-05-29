@@ -1,6 +1,6 @@
-﻿using hdcontext.IdentityDomain;
-using hdcore;
-using hdidentity.Interface;
+﻿using FX.Context.IdentityDomain;
+using FX.Core;
+using FX.Identity.Interface;
 using MyStore.Context.IdentityConfiguration;
 using System;
 using System.Collections.Generic;

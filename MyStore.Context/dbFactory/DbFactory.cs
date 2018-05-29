@@ -1,5 +1,5 @@
-﻿using hdcontext;
-using hddata.DBFactory;
+﻿using FX.Context;
+using FX.Data.DBFactory;
 
 namespace MyStore.Context.dbFactory
 {

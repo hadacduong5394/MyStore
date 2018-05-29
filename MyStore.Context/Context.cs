@@ -1,4 +1,4 @@
-﻿using hdcontext;
+﻿using FX.Context;
 
 namespace MyStore.Context
 {
