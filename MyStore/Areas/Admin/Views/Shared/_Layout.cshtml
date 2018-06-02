@@ -119,6 +119,9 @@
                         <!-- End Messages -->
                     </ul>
                     <!-- User profile and search -->
+                    <form role="form" id="frmLogOff" action="/Admin/Account/LogOff" method="post">
+                        @Html.AntiForgeryToken()
+                    </form>
                     <ul class="navbar-nav my-lg-0">
 
                         <!-- Search -->
@@ -237,7 +240,7 @@
                                     <li><a href="#"><i class="ti-wallet"></i> Balance</a></li>
                                     <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                                     <li><a href="#"><i class="ti-settings"></i> Setting</a></li>
-                                    <li><a href="/Admin/Account/Login"><i class="fa fa-power-off"></i> Logout</a></li>
+                                    <li><a href="#" id="btnLogOff"><i class="fa fa-power-off"></i> Logout</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -410,6 +413,11 @@
     <script src="~/Assets/Admin/javascript/sticky-kit.min.js"></script>
     <!--Custom JavaScript -->
     <script src="~/Assets/Admin/javascript/custom.min.js"></script>
+    <script>
+        $('#btnLogOff').off('click').on('click', function () {
+            $('#frmLogOff').submit();
+        });
+    </script>
 
 </body>
 

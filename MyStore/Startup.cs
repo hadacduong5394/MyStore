@@ -22,7 +22,27 @@ namespace MyStore
         public void Configuration(IAppBuilder app)
         {
             ConfigAutofac(app);
-            ConfigureAuth(app);
+            ConfigureAuthForWebApi(app);
+            ConfigureAuthForWebMVC(app);
+
+            // Uncomment the following lines to enable logging in with third party login providers
+            //app.UseMicrosoftAccountAuthentication(
+            //    clientId: "",
+            //    clientSecret: "");
+
+            //app.UseTwitterAuthentication(
+            //   consumerKey: "",
+            //   consumerSecret: "");
+
+            //app.UseFacebookAuthentication(
+            //   appId: "",
+            //   appSecret: "");
+
+            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            //{
+            //    ClientId = "",
+            //    ClientSecret = ""
+            //});
         }
 
         private void ConfigAutofac(IAppBuilder app)

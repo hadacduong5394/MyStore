@@ -93,12 +93,13 @@
   <ItemGroup>
     <Compile Include="Context.cs" />
     <Compile Include="dbFactory\DbFactory.cs" />
+    <Compile Include="IdentityConfiguration\AuthorizationServerProvider.cs" />
     <Compile Include="IdentityConfiguration\CurrentUser.cs" />
     <Compile Include="IdentityConfiguration\IdentityConfig.cs" />
     <Compile Include="IdentityConfiguration\UserManager.cs" />
-    <Compile Include="Migrations\201804161516241_Init.cs" />
-    <Compile Include="Migrations\201804161516241_Init.Designer.cs">
-      <DependentUpon>201804161516241_Init.cs</DependentUpon>
+    <Compile Include="Migrations\201806021517489_Init.cs" />
+    <Compile Include="Migrations\201806021517489_Init.Designer.cs">
+      <DependentUpon>201806021517489_Init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -111,8 +112,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201804161516241_Init.resx">
-      <DependentUpon>201804161516241_Init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201806021517489_Init.resx">
+      <DependentUpon>201806021517489_Init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

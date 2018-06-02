@@ -1,10 +1,16 @@
-﻿using FX.Core.Utils;
+﻿using FX.Context.IdentityDomain;
+using FX.Core.Utils;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using MyStore.Areas.Admin.Models;
+using MyStore.Context.IdentityConfiguration;
 using System;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Security.Claims;
+using System.Web;
 using System.Web.Mvc;
 
 namespace MyStore.Areas.Admin.Controllers
@@ -15,6 +21,7 @@ namespace MyStore.Areas.Admin.Controllers
         private const int width = 80;
         private const int length = 4;
 
+        [HttpGet]
         public ActionResult Login(string returnUrl)
         {
             string randomText = string.Empty;
@@ -32,17 +39,58 @@ namespace MyStore.Areas.Admin.Controllers
         {
             var hash = Compute.ComputeMd5Hash(captcha + GetSalt());
             var captchaHash = Session["CaptchaHash"] as string;
-            if (hash.Equals(captchaHash)) return RedirectToAction("Index", "Home");
+            if (hash.Equals(captchaHash))
+            {
+                ApplicationUser user = UserManager.Instance.UserManagerment.Find(userName, password);
+                if (user != null)
+                {
+                    if (!user.Status)
+                    {
+                        ViewData["ErrorLogin"] = "Tài khoản này đang bị khóa.";
+                    }
+                    else
+                    {
+                        IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+                        authenticationManager.SignOut(DefaultAuthenticationTypes.ExternalCookie);
+                        ClaimsIdentity identity = UserManager.Instance.UserManagerment.CreateIdentity(user, DefaultAuthenticationTypes.ApplicationCookie);
+                        AuthenticationProperties props = new AuthenticationProperties();
+                        authenticationManager.SignIn(props, identity);
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+                else
+                {
+                    ViewData["ErrorLogin"] = "Sai tên đăng nhập hoặc mật khẩu.";
+                }
+            }
             else
             {
                 ViewData["ErrorLogin"] = "Nhập sai mã xác thực";
-                string randomText = string.Empty;
-                var bmpBytes = GetCatcha(out randomText);
-                Session["CaptchaHash"] = Compute.ComputeMd5Hash(randomText + GetSalt());
-                var model = new LoginViewModel(bmpBytes, userName, password, captcha);
-                ViewBag.ReturnUrl = returnUrl;
-                return View(model);
             }
+            string randomText = string.Empty;
+            var bmpBytes = GetCatcha(out randomText);
+            Session["CaptchaHash"] = Compute.ComputeMd5Hash(randomText + GetSalt());
+            var model = new LoginViewModel(bmpBytes, userName, password, captcha);
+            ViewBag.ReturnUrl = returnUrl;
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult LogOff()
+        {
+            IAuthenticationManager authenticationManager = HttpContext.GetOwinContext().Authentication;
+            authenticationManager.SignOut();
+            return RedirectToAction("Login", "Account");
+        }
+
+        private ActionResult RedirectToLocal(string returnUrl)
+        {
+            if (Url.IsLocalUrl(returnUrl))
+            {
+                return Redirect(returnUrl);
+            }
+            return RedirectToAction("Index", "Home");
         }
 
         private static void DrawRandomLines(ref Graphics g, int width, int height)

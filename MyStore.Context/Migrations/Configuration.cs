@@ -1,5 +1,8 @@
-namespace MyStore.Context.Migrations
+﻿namespace MyStore.Context.Migrations
 {
+    using FX.Context.IdentityDomain;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -14,18 +17,20 @@ namespace MyStore.Context.Migrations
 
         protected override void Seed(MyStore.Context.Context context)
         {
-            //  This method will be called after migrating to the latest version.
+            var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MyStore.Context.Context()));
 
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
-            //  to avoid creating duplicate seed data. E.g.
-            //
-            //    context.People.AddOrUpdate(
-            //      p => p.FullName,
-            //      new Person { FullName = "Andrew Peters" },
-            //      new Person { FullName = "Brice Lambson" },
-            //      new Person { FullName = "Rowan Miller" }
-            //    );
-            //
+            var user = new ApplicationUser()
+            {
+                UserName = "admin",
+                Email = "admin@gmail.com",
+                EmailConfirmed = true,
+                BirthDay = DateTime.Now,
+                FullName = "Hà Đắc Dương",
+                CreateDate = DateTime.Now,
+                CreateBy = "admin",
+                Status = true,
+            };
+            manager.Create(user, "123456");
         }
     }
 }

@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MyStore.Areas.Admin.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         // GET: Admin/Home
