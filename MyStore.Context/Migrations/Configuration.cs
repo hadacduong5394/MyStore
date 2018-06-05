@@ -4,6 +4,7 @@
     using Microsoft.AspNet.Identity;
     using Microsoft.AspNet.Identity.EntityFramework;
     using System;
+    using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
@@ -31,6 +32,20 @@
                 Status = true,
             };
             manager.Create(user, "123456");
+
+            var lstRole = new List<Role>
+            {
+                new Role { Name = "Role1", CreateBy = "duonghd", CreateDate = DateTime.Now, Descreption = "Role1", Status = true },
+                new Role { Name = "Role2", CreateBy = "duonghd", CreateDate = DateTime.Now, Descreption = "Role2", Status = true }
+            };
+
+            var groups = new List<Group>
+            {
+                new Group { ComId = 0, Name = "Group1", Descreption = "Group1", CreateBy = "duonghd", CreateDate = DateTime.Now, Status = true },
+            };
+            context.ApplicationRoles.AddRange(lstRole);
+            context.Groups.AddRange(groups);
+            context.SaveChanges();
         }
     }
 }

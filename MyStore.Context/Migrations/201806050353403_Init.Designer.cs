@@ -13,7 +13,7 @@ namespace MyStore.Context.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201806021517489_Init"; }
+            get { return "201806050353403_Init"; }
         }
         
         string IMigrationMetadata.Source

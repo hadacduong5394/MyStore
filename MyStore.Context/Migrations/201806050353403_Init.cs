@@ -23,16 +23,6 @@ namespace MyStore.Context.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.Company",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 500),
-                        ImageIcon = c.String(nullable: false, maxLength: 1024),
-                    })
-                .PrimaryKey(t => t.Id);
-            
-            CreateTable(
                 "dbo.Groups",
                 c => new
                     {
@@ -49,13 +39,14 @@ namespace MyStore.Context.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.RoleGroups",
+                "dbo.Company",
                 c => new
                     {
-                        GroupId = c.Int(nullable: false),
-                        RoleId = c.Int(nullable: false),
+                        Id = c.Int(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 500),
+                        ImageIcon = c.String(nullable: false, maxLength: 1024),
                     })
-                .PrimaryKey(t => new { t.GroupId, t.RoleId });
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.IdentityRoles",
@@ -146,6 +137,19 @@ namespace MyStore.Context.Migrations
                 .ForeignKey("dbo.ApplicationUsers", t => t.ApplicationUser_Id)
                 .Index(t => t.ApplicationUser_Id);
             
+            CreateTable(
+                "dbo.RoleGroups",
+                c => new
+                    {
+                        RoleId = c.Int(nullable: false),
+                        GroupId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.RoleId, t.GroupId })
+                .ForeignKey("dbo.Roles", t => t.RoleId, cascadeDelete: true)
+                .ForeignKey("dbo.Groups", t => t.GroupId, cascadeDelete: true)
+                .Index(t => t.RoleId)
+                .Index(t => t.GroupId);
+            
         }
         
         public override void Down()
@@ -154,19 +158,23 @@ namespace MyStore.Context.Migrations
             DropForeignKey("dbo.ApplicationUserLogins", "ApplicationUser_Id", "dbo.ApplicationUsers");
             DropForeignKey("dbo.ApplicationUserClaims", "ApplicationUser_Id", "dbo.ApplicationUsers");
             DropForeignKey("dbo.ApplicationUserRoles", "IdentityRole_Id", "dbo.IdentityRoles");
+            DropForeignKey("dbo.RoleGroups", "GroupId", "dbo.Groups");
+            DropForeignKey("dbo.RoleGroups", "RoleId", "dbo.Roles");
+            DropIndex("dbo.RoleGroups", new[] { "GroupId" });
+            DropIndex("dbo.RoleGroups", new[] { "RoleId" });
             DropIndex("dbo.ApplicationUserLogins", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.ApplicationUserClaims", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.ApplicationUserRoles", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.ApplicationUserRoles", new[] { "IdentityRole_Id" });
+            DropTable("dbo.RoleGroups");
             DropTable("dbo.ApplicationUserLogins");
             DropTable("dbo.ApplicationUserClaims");
             DropTable("dbo.ApplicationUsers");
             DropTable("dbo.UserGroups");
             DropTable("dbo.ApplicationUserRoles");
             DropTable("dbo.IdentityRoles");
-            DropTable("dbo.RoleGroups");
-            DropTable("dbo.Groups");
             DropTable("dbo.Company");
+            DropTable("dbo.Groups");
             DropTable("dbo.Roles");
         }
     }

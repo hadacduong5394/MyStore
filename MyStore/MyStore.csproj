@@ -62,7 +62,8 @@
     <Reference Include="EntityFramework.SqlServer">
       <HintPath>..\Lib\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="FX.Context">
+    <Reference Include="FX.Context, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Lib\FX.Context.dll</HintPath>
     </Reference>
     <Reference Include="FX.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
